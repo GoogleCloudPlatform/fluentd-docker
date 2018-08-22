@@ -19,14 +19,11 @@ versions:
   - dir: '1/debian9/1.2'
     repo: fluentd1
     tags:
-      - '1.2.2-debian9'
+      - '1.2.4-debian9'
       - '1.2-debian9'
       - '1-debian9'
-      - '1.2.2'
+      - '1.2.4'
       - '1.2'
       - '1'
       - 'latest'
     from: *from
-    packages:
-      grafana:
-        version: '1.2.2'
