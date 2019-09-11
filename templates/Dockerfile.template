@@ -24,6 +24,9 @@ FROM {{ .From }}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Unfortunatley it is hardcoded in case lack of package at versions.yaml
+ENV C2D_RELEASE=1.2.4
+
 COPY Gemfile /Gemfile
 
 RUN BUILD_DEPS="make gcc g++ libc6-dev ruby-dev libffi-dev" && \
@@ -45,5 +48,8 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 EXPOSE 80
 
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
+
+RUN test ${C2D_RELEASE} = $(fluentd -v --dry-run | grep -o -E 'starting fluentd-([0-9]+\.)([0-9]+\.)([0-9]+)' | cut -d- -f2) \
+         || { echo "Version check failed !! WARNING: version is hardcoded !!"; exit 1; }
 
 CMD /docker-entrypoint.sh $FLUENTD_ARGS
