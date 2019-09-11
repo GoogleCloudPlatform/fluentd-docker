@@ -24,7 +24,8 @@ FROM gcr.io/google-appengine/debian9
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Unfortunatley it is hardcoded in case lack of package at versions.yaml
+# This field is hardcoded to correspond with value in Gemfile,
+# which is not generated from versions.yaml
 ENV C2D_RELEASE=1.2.4
 
 COPY Gemfile /Gemfile
