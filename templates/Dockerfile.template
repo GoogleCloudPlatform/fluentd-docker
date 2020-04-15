@@ -21,7 +21,7 @@
 # log files with root only access under /var/log/containers/*
 
 {{- $fluentd := index .Packages "fluentd" -}}
-{{- $ruby := index .Packages "ruby" -}}
+{{- $ruby := index .Packages "ruby" }}
 
 FROM {{ .From }}
 
@@ -32,7 +32,7 @@ ENV RUBY_VERSION {{ $ruby.Version }}
 ENV RUBY_GPG {{ $ruby.Gpg }}
 ENV C2D_RELEASE={{ $fluentd.Version }}
 
-COPY Gemfile /Gemfile
+COPY Gemfile.conf /Gemfile.conf
 
 RUN mkdir ~/.gnupg \
     && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
@@ -42,14 +42,17 @@ RUN apt-get update && \
       ca-certificates \
       curl \
       dirmngr \
+      gettext-base \
       libjemalloc1 \
       gnupg2 \
       procps
 
-RUN gpg2 --recv-keys ${RUBY_GPG} \
-    && curl -sSL https://get.rvm.io | bash -s stable
+RUN cat "Gemfile.conf" | envsubst "\$FLUENTD_VERSION" > Gemfile \
+    && rm -f Gemfile.conf
 
-RUN /bin/bash -l -c "rvm install ${RUBY_VERSION}" \
+RUN gpg2 --recv-keys ${RUBY_GPG} \
+    && curl -sSL https://get.rvm.io | bash -s stable \
+    && /bin/bash -l -c "rvm install ${RUBY_VERSION}" \
     && /bin/bash -l -c "gem install --file Gemfile" \
     && ulimit -n 65536
 
