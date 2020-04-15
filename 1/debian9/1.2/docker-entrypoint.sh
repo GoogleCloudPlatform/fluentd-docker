@@ -21,4 +21,8 @@
 # For systems without journald
 mkdir -p /var/log/journal
 
-exec /usr/local/bin/fluentd $@
+export PATH=$PATH:/usr/local/rvm/rubies/ruby-2.6.5/bin
+export PATH=$PATH:/usr/local/rvm/gems/ruby-2.6.5/bin
+export GEM_PATH=/usr/local/rvm/gems/ruby-2.6.5
+
+exec fluentd $@

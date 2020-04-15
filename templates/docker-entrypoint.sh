@@ -19,6 +19,13 @@
 # been mounted, and therefore cannot be done in the docker build stage.
 
 # For systems without journald
+
+{{- $ruby := index .Packages "ruby" -}}
+
 mkdir -p /var/log/journal
+
+export PATH=$PATH:/usr/local/rvm/rubies/ruby-{{ $ruby.Version }}/bin
+export PATH=$PATH:/usr/local/rvm/gems/ruby-{{ $ruby.Version }}/bin
+export GEM_PATH=/usr/local/rvm/gems/ruby-{{ $ruby.Version }}
 
 exec /usr/local/bin/fluentd $@
