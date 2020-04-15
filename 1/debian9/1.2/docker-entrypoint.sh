@@ -1,7 +1,7 @@
 #!/bin/bash -e
 #
 # Copyright 2017 The Kubernetes Authors.
-# Copyright 2018 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,11 @@
 # been mounted, and therefore cannot be done in the docker build stage.
 
 # For systems without journald
+
 mkdir -p /var/log/journal
 
-exec /usr/local/bin/fluentd $@
+export PATH=$PATH:/usr/local/rvm/rubies/ruby-${RUBY_VERSION}/bin
+export PATH=$PATH:/usr/local/rvm/gems/ruby-${RUBY_VERSION}/bin
+export GEM_PATH=/usr/local/rvm/gems/ruby-${RUBY_VERSION}
+
+exec fluentd $@
