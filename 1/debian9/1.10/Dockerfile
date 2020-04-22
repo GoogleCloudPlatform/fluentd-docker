@@ -20,14 +20,14 @@
 # Note that fluentd is run with root permssion to allow access to
 # log files with root only access under /var/log/containers/*
 
-FROM gcr.io/google-appengine/debian9
+FROM marketplace.gcr.io/google/debian9
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV FLUENTD_VERSION 1.9.3
+ENV FLUENTD_VERSION 1.10.2
 ENV RUBY_VERSION 2.6.5
 ENV RUBY_GPG 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-ENV C2D_RELEASE=1.9.3
+ENV C2D_RELEASE=1.10.2
 
 COPY Gemfile.conf /Gemfile.conf
 
