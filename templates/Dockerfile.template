@@ -50,7 +50,7 @@ RUN apt-get update && \
 RUN cat "Gemfile.conf" | envsubst "\$FLUENTD_VERSION" > Gemfile \
     && rm -f Gemfile.conf
 
-RUN gpg2 --recv-keys ${RUBY_GPG} \
+RUN {{ `gpg --keyserver $server --recv-keys ${RUBY_GPG}` | KeyServersRetryLoop "\t" }} \
     && curl -sSL https://get.rvm.io | bash -s stable \
     && /bin/bash -l -c "rvm install ${RUBY_VERSION}" \
     && /bin/bash -l -c "gem install --file Gemfile" \

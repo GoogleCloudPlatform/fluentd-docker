@@ -47,7 +47,21 @@ RUN apt-get update && \
 RUN cat "Gemfile.conf" | envsubst "\$FLUENTD_VERSION" > Gemfile \
     && rm -f Gemfile.conf
 
-RUN gpg2 --recv-keys ${RUBY_GPG} \
+RUN found='' && \
+	for server in \
+		pool.sks-keyservers.net \
+		na.pool.sks-keyservers.net \
+		eu.pool.sks-keyservers.net \
+		oc.pool.sks-keyservers.net \
+		ha.pool.sks-keyservers.net \
+		hkp://p80.pool.sks-keyservers.net:80 \
+		hkp://keyserver.ubuntu.com:80 \
+		pgp.mit.edu \
+	; do \
+		gpg --keyserver $server --recv-keys ${RUBY_GPG} \
+			&& found=yes && break; \
+	done; \
+	test -n "$found" \
     && curl -sSL https://get.rvm.io | bash -s stable \
     && /bin/bash -l -c "rvm install ${RUBY_VERSION}" \
     && /bin/bash -l -c "gem install --file Gemfile" \
