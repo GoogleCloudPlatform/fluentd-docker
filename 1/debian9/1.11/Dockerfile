@@ -24,10 +24,10 @@ FROM marketplace.gcr.io/google/debian9
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV FLUENTD_VERSION 1.11.0
+ENV FLUENTD_VERSION 1.11.1
 ENV RUBY_VERSION 2.6.5
 ENV RUBY_GPG 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-ENV C2D_RELEASE=1.11.0
+ENV C2D_RELEASE=1.11.1
 
 COPY Gemfile.conf /Gemfile.conf
 
@@ -47,7 +47,21 @@ RUN apt-get update && \
 RUN cat "Gemfile.conf" | envsubst "\$FLUENTD_VERSION" > Gemfile \
     && rm -f Gemfile.conf
 
-RUN gpg2 --recv-keys ${RUBY_GPG} \
+RUN found='' && \
+	for server in \
+		pool.sks-keyservers.net \
+		na.pool.sks-keyservers.net \
+		eu.pool.sks-keyservers.net \
+		oc.pool.sks-keyservers.net \
+		ha.pool.sks-keyservers.net \
+		hkp://p80.pool.sks-keyservers.net:80 \
+		hkp://keyserver.ubuntu.com:80 \
+		pgp.mit.edu \
+	; do \
+		gpg --keyserver $server --recv-keys ${RUBY_GPG} \
+			&& found=yes && break; \
+	done; \
+	test -n "$found" \
     && curl -sSL https://get.rvm.io | bash -s stable \
     && /bin/bash -l -c "rvm install ${RUBY_VERSION}" \
     && /bin/bash -l -c "gem install --file Gemfile" \
