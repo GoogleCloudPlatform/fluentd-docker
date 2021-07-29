@@ -62,7 +62,10 @@ RUN found='' && \
 			&& found=yes && break; \
 	done; \
 	test -n "$found" \
-    && curl -sSL https://get.rvm.io | bash -s stable \
+    && curl -sSL -o get-rvm-io.sh https://get.rvm.io \
+    && (echo "fea24461e98d41528d6e28684aa4c216dbe903869bc3fcdb3493b6518fae2e7e get-rvm-io.sh" | sha256sum --check) \
+    && /bin/bash get-rvm-io.sh stable \
+    && rm -f get-rvm-io.sh \
     && /bin/bash -l -c "rvm install ${RUBY_VERSION}" \
     && /bin/bash -l -c "gem install --file Gemfile" \
     && ulimit -n 65536
