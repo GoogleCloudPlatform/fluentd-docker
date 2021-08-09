@@ -26,10 +26,10 @@ versions:
       version: 2.6.5
   repo: fluentd1
   tags:
-  - 1.13.4-debian9
+  - 1.13.3-debian9
   - 1.13-debian9
   - 1-debian9
-  - 1.13.4
+  - 1.13.3
   - '1.13'
   - '1'
   - latest
@@ -43,8 +43,8 @@ versions:
       version: 2.5.7
   repo: fluentd1
   tags:
-  - 1.2.7-debian9
+  - 1.2.6-debian9
   - 1.2-debian9
-  - 1.2.7
+  - 1.2.6
   - '1.2'
 
