@@ -22,6 +22,7 @@
 
 {{- $fluentd := index .Packages "fluentd" -}}
 {{- $ruby := index .Packages "ruby" }}
+{{- $rvm := index .Packages "rvm" }}
 
 FROM {{ .From }}
 
@@ -30,6 +31,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV FLUENTD_VERSION {{ $fluentd.Version }}
 ENV RUBY_VERSION {{ $ruby.Version }}
 ENV RUBY_GPG {{ $ruby.Gpg }}
+ENV RVM_SHA256 {{ $rvm.Sha256 }}
+
 ENV C2D_RELEASE={{ $fluentd.Version }}
 
 COPY Gemfile.conf /Gemfile.conf
@@ -52,7 +55,7 @@ RUN cat "Gemfile.conf" | envsubst "\$FLUENTD_VERSION" > Gemfile \
 
 RUN {{ `gpg --keyserver $server --recv-keys ${RUBY_GPG}` | KeyServersRetryLoop "\t" }} \
     && curl -sSL -o get-rvm-io.sh https://get.rvm.io \
-    && (echo "fea24461e98d41528d6e28684aa4c216dbe903869bc3fcdb3493b6518fae2e7e get-rvm-io.sh" | sha256sum --check) \
+    && (echo "${RVM_SHA256} get-rvm-io.sh" | sha256sum --check) \
     && /bin/bash get-rvm-io.sh stable \
     && rm -f get-rvm-io.sh \
     && /bin/bash -l -c "rvm install ${RUBY_VERSION}" \
