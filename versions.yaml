@@ -20,7 +20,7 @@ versions:
   from: marketplace.gcr.io/google/debian9
   packages:
     fluentd:
-      version: 1.14.5
+      version: 1.14.6
     ruby:
       gpg: 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
       version: 2.7.0
@@ -28,10 +28,10 @@ versions:
       sha256: fea24461e98d41528d6e28684aa4c216dbe903869bc3fcdb3493b6518fae2e7e
   repo: fluentd1
   tags:
-  - 1.14.5-debian9
+  - 1.14.6-debian9
   - 1.14-debian9
   - 1-debian9
-  - 1.14.5
+  - 1.14.6
   - '1.14'
   - '1'
   - latest
