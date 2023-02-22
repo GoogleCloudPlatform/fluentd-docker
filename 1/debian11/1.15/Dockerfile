@@ -27,7 +27,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV FLUENTD_VERSION 1.15.3
 ENV RUBY_VERSION 2.7.0
 ENV RUBY_GPG 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-ENV RVM_SHA256 fea24461e98d41528d6e28684aa4c216dbe903869bc3fcdb3493b6518fae2e7e
+ENV RVM_SHA256 7bbf79be95e516f72945e558a4290b40ff8714158140a00991d42172ff78e209
 
 ENV C2D_RELEASE=1.15.3
 
@@ -42,28 +42,13 @@ RUN apt-get update && \
       curl \
       dirmngr \
       gettext-base \
-      libjemalloc1 \
       gnupg2 \
       procps
 
 RUN cat "Gemfile.conf" | envsubst "\$FLUENTD_VERSION" > Gemfile \
     && rm -f Gemfile.conf
 
-RUN found='' && \
-	for server in \
-		pool.sks-keyservers.net \
-		na.pool.sks-keyservers.net \
-		eu.pool.sks-keyservers.net \
-		oc.pool.sks-keyservers.net \
-		ha.pool.sks-keyservers.net \
-		hkp://p80.pool.sks-keyservers.net:80 \
-		hkp://keyserver.ubuntu.com:80 \
-		pgp.mit.edu \
-	; do \
-		gpg --keyserver $server --recv-keys ${RUBY_GPG} \
-			&& found=yes && break; \
-	done; \
-	test -n "$found" \
+RUN gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys ${RUBY_GPG} \
     && curl -sSL -o get-rvm-io.sh https://get.rvm.io \
     && (echo "${RVM_SHA256} get-rvm-io.sh" | sha256sum --check) \
     && /bin/bash get-rvm-io.sh stable \
