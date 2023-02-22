@@ -46,14 +46,13 @@ RUN apt-get update && \
       curl \
       dirmngr \
       gettext-base \
-      libjemalloc1 \
       gnupg2 \
       procps
 
 RUN cat "Gemfile.conf" | envsubst "\$FLUENTD_VERSION" > Gemfile \
     && rm -f Gemfile.conf
 
-RUN {{ `gpg --keyserver $server --recv-keys ${RUBY_GPG}` | KeyServersRetryLoop "\t" }} \
+RUN gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys ${RUBY_GPG} \
     && curl -sSL -o get-rvm-io.sh https://get.rvm.io \
     && (echo "${RVM_SHA256} get-rvm-io.sh" | sha256sum --check) \
     && /bin/bash get-rvm-io.sh stable \
