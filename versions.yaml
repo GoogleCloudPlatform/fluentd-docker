@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@
 cloudbuild:
   enable_parallel: false
 versions:
-- dir: 1/debian9/1.14
-  from: marketplace.gcr.io/google/debian9
+- dir: 1/debian11/1.15
+  from: marketplace.gcr.io/google/c2d-debian11
   packages:
     fluentd:
-      version: 1.14.5
+      version: 1.15.3
     ruby:
       gpg: 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
       version: 2.7.0
@@ -28,15 +28,15 @@ versions:
       sha256: fea24461e98d41528d6e28684aa4c216dbe903869bc3fcdb3493b6518fae2e7e
   repo: fluentd1
   tags:
-  - 1.14.5-debian9
-  - 1.14-debian9
-  - 1-debian9
-  - 1.14.5
-  - '1.14'
+  - 1.15.3-debian11
+  - 1.15-debian11
+  - 1-debian11
+  - 1.15.3
+  - '1.15'
   - '1'
   - latest
-- dir: 1/debian9/1.13
-  from: marketplace.gcr.io/google/debian9
+- dir: 1/debian11/1.13
+  from: marketplace.gcr.io/google/c2d-debian11
   packages:
     fluentd:
       version: 1.13.3
@@ -47,8 +47,7 @@ versions:
       sha256: fea24461e98d41528d6e28684aa4c216dbe903869bc3fcdb3493b6518fae2e7e
   repo: fluentd1
   tags:
-  - 1.13.3-debian9
-  - 1.13-debian9
+  - 1.13.3-debian11
+  - 1.13-debian11
   - 1.13.3
   - '1.13'
-
