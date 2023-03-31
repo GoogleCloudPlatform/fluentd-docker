@@ -16,11 +16,11 @@
 cloudbuild:
   enable_parallel: false
 versions:
-- dir: 1/debian11/1.15
+- dir: 1/debian11/1.16
   from: marketplace.gcr.io/google/c2d-debian11
   packages:
     fluentd:
-      version: 1.15.3
+      version: 1.16.0
     ruby:
       gpg: 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
       version: 2.7.0
@@ -28,11 +28,11 @@ versions:
       sha256: 7bbf79be95e516f72945e558a4290b40ff8714158140a00991d42172ff78e209
   repo: fluentd1
   tags:
-  - 1.15.3-debian11
-  - 1.15-debian11
+  - 1.16.0-debian11
+  - 1.16-debian11
   - 1-debian11
-  - 1.15.3
-  - '1.15'
+  - 1.16.0
+  - '1.16'
   - '1'
   - latest
 - dir: 1/debian11/1.13
@@ -51,3 +51,4 @@ versions:
   - 1.13-debian11
   - 1.13.3
   - '1.13'
+
