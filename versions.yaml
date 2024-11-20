@@ -24,7 +24,7 @@ versions:
       version: 1.16.2
     ruby:
       gpg: 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-      version: 2.7.0
+      version: 3.0.0
     rvm:
       sha256: 7bbf79be95e516f72945e558a4290b40ff8714158140a00991d42172ff78e209
   repo: fluentd1
@@ -46,7 +46,7 @@ versions:
       version: 1.13.3
     ruby:
       gpg: 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-      version: 2.7.0
+      version: 3.0.0
     rvm:
       sha256: 7bbf79be95e516f72945e558a4290b40ff8714158140a00991d42172ff78e209
   annotations:

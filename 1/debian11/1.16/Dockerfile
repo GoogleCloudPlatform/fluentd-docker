@@ -25,7 +25,7 @@ FROM marketplace.gcr.io/google/c2d-debian11
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV FLUENTD_VERSION 1.16.2
-ENV RUBY_VERSION 2.7.0
+ENV RUBY_VERSION 3.0.0
 ENV RUBY_GPG 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 ENV RVM_SHA256 7bbf79be95e516f72945e558a4290b40ff8714158140a00991d42172ff78e209
 
@@ -53,7 +53,7 @@ RUN gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys ${RUBY_GPG} \
     && (echo "${RVM_SHA256} get-rvm-io.sh" | sha256sum --check) \
     && /bin/bash get-rvm-io.sh stable \
     && rm -f get-rvm-io.sh \
-    && /bin/bash -l -c "rvm install ${RUBY_VERSION}" \
+    && /bin/bash -l -c "rvm install ${RUBY_VERSION} --disable-binary" \
     && /bin/bash -l -c "gem install --file Gemfile" \
     && ulimit -n 65536
 
