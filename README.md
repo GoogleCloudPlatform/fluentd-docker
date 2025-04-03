@@ -1,11 +1,4 @@
 fluentd-docker
 ============
 
-Dockerfile source for Fluentd [docker](https://docker.io) image.
-
-# Upstream
-This source repo was originally built based on:
-https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/fluentd-elasticsearch/fluentd-es-image
-
-# Disclaimer
-This is not an official Google product.
+## This repository has been deprecated. Check the [latest commit tree](https://github.com/GoogleCloudPlatform/fluentd-docker/tree/f25fd4c8a7eb43205a994acf93f17dda1698e9e3).
